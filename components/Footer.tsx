@@ -9,8 +9,9 @@ export default function Footer() {
           {/* Brand & Purpose */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-lg">
-                GP
+              <div className="w-9 h-9 rounded-xl overflow-hidden shadow-xs ring-1 ring-blue-500/30 shrink-0">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/favicon.svg" alt="GovPay TrueFunds" className="w-full h-full object-cover" width={36} height={36} />
               </div>
               <div className="flex items-center gap-2">
                 <span className="font-bold text-white text-lg">GovPay</span>

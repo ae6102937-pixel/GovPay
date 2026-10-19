@@ -15,12 +15,61 @@ import DisclaimerBanner from '@/components/DisclaimerBanner';
 import ShareAndPrint from '@/components/ShareAndPrint';
 import { POPULAR_POSTS, PostSalaryProfile } from '@/lib/pay-data';
 import { calculate8thCPCSalary, CityClass } from '@/lib/cpc-calculator';
+import type { Metadata } from 'next';
 import { FormatINR, RupeeIcon } from '@/components/Rupee';
+import PrintReport from '@/components/PrintReport';
 
 export function generateStaticParams() {
   return POPULAR_POSTS.map((post) => ({
     slug: post.slug,
   }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const post = POPULAR_POSTS.find((p) => p.slug === slug);
+  if (!post) {
+    return {
+      title: 'Post Salary Profile Not Found | GovPay TrueFunds',
+      description: 'The requested Central Government post salary profile could not be found.',
+    };
+  }
+
+  const title = `${post.title} Salary after 8th Pay Commission - Level ${post.level} Pay Breakdown`;
+  const description = `Detailed 8th CPC projected salary for ${post.title} under ${post.department}. Level ${post.level} (Grade Pay ${post.gradePay}), estimated in-hand salary, allowances, and allowances across X, Y, Z cities.`;
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `https://govpay.truefunds.co.in/salary-of/${post.slug}`,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `https://govpay.truefunds.co.in/salary-of/${post.slug}`,
+      siteName: 'GovPay TrueFunds',
+      type: 'article',
+      images: [
+        {
+          url: '/og-image.png',
+          width: 1200,
+          height: 630,
+          alt: `${post.title} 8th Pay Commission Salary Structure`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/og-image.png'],
+    },
+  };
 }
 
 export default async function PostDetailPage({

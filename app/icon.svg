@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e40af" />
+      <stop offset="50%" stop-color="#1e1b4b" />
+      <stop offset="100%" stop-color="#090d16" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fde047" />
+      <stop offset="50%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="16" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.45" />
+    </filter>
+  </defs>
+
+  <!-- Background Base with Squircle -->
+  <rect x="24" y="24" width="464" height="464" rx="108" fill="url(#bgGrad)" stroke="#3b82f6" stroke-width="8" stroke-opacity="0.4" />
+
+  <!-- Inner Soft Glowing Ring -->
+  <rect x="36" y="36" width="440" height="440" rx="96" fill="none" stroke="url(#goldGrad)" stroke-width="4" stroke-opacity="0.6" />
+
+  <!-- Dynamic Upward Growth Ribbon / Bar Chart Accent behind Rupee -->
+  <g opacity="0.35">
+    <rect x="110" y="320" width="36" height="70" rx="10" fill="#38bdf8" />
+    <rect x="160" y="270" width="36" height="120" rx="10" fill="#60a5fa" />
+    <rect x="360" y="190" width="36" height="200" rx="10" fill="#34d399" />
+    <path d="M128 300 L256 190 L378 170" fill="none" stroke="#34d399" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" />
+    <polygon points="378,150 400,175 370,185" fill="#34d399" />
+  </g>
+
+  <!-- Center Sovereign Emblem: Bold Stylized Indian Rupee Sign ₹ -->
+  <g filter="url(#shadow)">
+    <!-- Top Horizontal Bar -->
+    <path d="M164 156 H348" stroke="url(#goldGrad)" stroke-width="42" stroke-linecap="round" />
+    <!-- Second Horizontal Bar -->
+    <path d="M164 218 H320" stroke="url(#goldGrad)" stroke-width="42" stroke-linecap="round" />
+    <!-- Vertical Stem -->
+    <path d="M228 156 V360" stroke="url(#goldGrad)" stroke-width="42" stroke-linecap="round" />
+    <!-- Upper Loop of Rupee -->
+    <path d="M228 156 C310 156, 320 256, 228 266" fill="none" stroke="url(#goldGrad)" stroke-width="42" stroke-linecap="round" stroke-linejoin="round" />
+    <!-- Diagonal Leg of Rupee -->
+    <path d="M228 266 L336 384" stroke="url(#goldGrad)" stroke-width="42" stroke-linecap="round" />
+  </g>
+
+  <!-- Star / 8th CPC Badge in Top Right -->
+  <circle cx="390" cy="116" r="32" fill="url(#emeraldGrad)" stroke="#ffffff" stroke-width="4" filter="url(#glow)" />
+  <text x="390" y="127" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle">8th</text>
+</svg>

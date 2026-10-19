@@ -1,0 +1,38 @@
+{
+  "name": "GovPay TrueFunds - 8th Pay Commission & Central Govt Salary Calculator",
+  "short_name": "GovPay",
+  "description": "Comprehensive 8th Pay Commission salary calculator, central government pay matrix levels 1-18, in-hand salary breakdown, UPS vs NPS, pension, and DA calculators.",
+  "start_url": "/",
+  "id": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0b1329",
+  "theme_color": "#1e40af",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon-48x48.png",
+      "sizes": "48x48",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ]
+}

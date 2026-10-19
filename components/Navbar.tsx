@@ -42,8 +42,9 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo & Brand */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-lg bg-linear-to-br from-blue-700 to-indigo-800 text-white flex items-center justify-center font-bold text-xl shadow-xs group-hover:scale-105 transition-transform">
-              GP
+            <div className="w-10 h-10 rounded-xl overflow-hidden shadow-xs ring-1 ring-blue-600/30 group-hover:scale-105 transition-transform shrink-0">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/favicon.svg" alt="GovPay TrueFunds" className="w-full h-full object-cover" width={40} height={40} />
             </div>
             <div>
               <div className="flex items-center gap-1.5">
