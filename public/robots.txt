@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Host: https://govpay.truefunds.co.in
+Sitemap: https://govpay.truefunds.co.in/sitemap.xml
