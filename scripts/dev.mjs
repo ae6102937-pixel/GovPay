@@ -1,10 +1,11 @@
 import { spawn } from 'node:child_process';
 import path from 'node:path';
+import fs from 'node:fs';
 
 const rawArgs = process.argv.slice(2);
 const cleanArgs = ['dev'];
 
-let port = process.env.PORT || '3000';
+let port = '3000';
 let hostname = '0.0.0.0';
 
 for (let i = 0; i < rawArgs.length; i++) {
@@ -55,13 +56,21 @@ for (let i = 0; i < rawArgs.length; i++) {
   cleanArgs.push(arg);
 }
 
+// Dev server must always run on port 3000 in this container environment.
+// Port 8080 is occupied by nginx reverse proxy.
+if (port === '8080') {
+  port = '3000';
+}
+
 cleanArgs.push('-p', String(port), '-H', String(hostname));
 
-const nextBin = path.resolve('node_modules/.bin/next');
+let nextBin = path.resolve('node_modules/next/dist/bin/next');
+if (!fs.existsSync(nextBin)) {
+  nextBin = path.resolve('node_modules/.bin/next');
+}
 
-const child = spawn(nextBin, cleanArgs, {
+const child = spawn(process.execPath, [nextBin, ...cleanArgs], {
   stdio: 'inherit',
-  shell: process.platform === 'win32',
 });
 
 process.on('SIGINT', () => child.kill('SIGINT'));
