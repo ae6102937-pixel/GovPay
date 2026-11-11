@@ -240,6 +240,67 @@ export default async function PostDetailPage({
             </table>
           </div>
 
+          {/* How the current pay is worked out: every figure comes from the calculation engine */}
+          <div className="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
+            <div className="p-4 bg-slate-50 border-b border-slate-200 space-y-1">
+              <h2 className="font-bold text-slate-900 text-base">
+                How a {post.title}&apos;s current pay is worked out
+              </h2>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                At entry, this post is on Pay Level {post.level} with basic pay of <FormatINR value={post.entryBasic7th} />. These
+                are 7th CPC figures at the current DA of {CURRENT_DA.rate}%. Each annual increment adds 3% of basic pay, so pay
+                rises every year from this starting point.
+              </p>
+            </div>
+
+            <table className="w-full text-left border-collapse text-xs sm:text-sm">
+              <thead>
+                <tr className="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
+                  <th className="py-3 px-4">Monthly, at entry</th>
+                  <th className="py-3 px-4 text-right">Class X city</th>
+                  <th className="py-3 px-4 text-right">Class Y city</th>
+                  <th className="py-3 px-4 text-right">Class Z city</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {[
+                  { label: 'Basic pay', values: [calcMetro.basic7th, calcTier2.basic7th, calcRural.basic7th] },
+                  { label: `Dearness Allowance (${CURRENT_DA.rate}%)`, values: [calcMetro.daAmount7th, calcTier2.daAmount7th, calcRural.daAmount7th] },
+                  {
+                    label: `HRA (${calcMetro.hraPercent7th}% / ${calcTier2.hraPercent7th}% / ${calcRural.hraPercent7th}% of basic)`,
+                    values: [calcMetro.hraAmount7th, calcTier2.hraAmount7th, calcRural.hraAmount7th],
+                  },
+                  { label: 'Transport Allowance, with DA on it', values: [calcMetro.taTotal7th, calcTier2.taTotal7th, calcRural.taTotal7th] },
+                  { label: 'Gross pay', values: [calcMetro.gross7th, calcTier2.gross7th, calcRural.gross7th], total: true },
+                  { label: 'Less: NPS (10% of basic + DA)', values: [calcMetro.npsDeduction7th, calcTier2.npsDeduction7th, calcRural.npsDeduction7th] },
+                  { label: 'Less: CGHS contribution', values: [calcMetro.cghs7th, calcTier2.cghs7th, calcRural.cghs7th] },
+                  { label: 'Less: CGEGIS', values: [calcMetro.cgegis7th, calcTier2.cgegis7th, calcRural.cgegis7th] },
+                  { label: 'Less: professional tax (assumed; varies by state)', values: [calcMetro.profTax7th, calcTier2.profTax7th, calcRural.profTax7th] },
+                  { label: 'In-hand pay', values: [calcMetro.inHand7th, calcTier2.inHand7th, calcRural.inHand7th], total: true },
+                ].map((row) => (
+                  <tr key={row.label} className={row.total ? 'bg-slate-50 font-bold text-slate-900' : 'text-slate-700'}>
+                    <td className="py-2.5 px-4">{row.label}</td>
+                    {row.values.map((value, i) => (
+                      <td key={i} className="py-2.5 px-4 text-right">
+                        <FormatINR value={value} />
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            <div className="p-4 border-t border-slate-200 space-y-2 text-xs text-slate-600">
+              <div className="font-bold text-slate-900">Not included in these figures</div>
+              <ul className="list-disc pl-5 space-y-1">
+                {post.notIncluded.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+                <li>Income tax, which depends on your total income and the tax regime you choose.</li>
+              </ul>
+            </div>
+          </div>
+
           {/* Custom Calculator Link */}
           <div className="p-4 bg-blue-50 border border-blue-200 rounded-xl flex items-center justify-between">
             <div>

@@ -19,6 +19,8 @@ const SITE_CHANGES = [
       'Corrected the date of the gratuity ceiling increase to ₹25 lakh: effective 1 January 2024, by an order of May 2024.',
       'Every 8th Pay Commission figure is now labelled as a projection, in page titles too. GovPay is not a government website, and its printed estimates no longer look like official statements.',
       'Added sources and dates to every news item, and a review date to every page.',
+      'Each post page now shows how its current pay is worked out, item by item, for Class X, Y and Z cities, and what the figures leave out.',
+      'The defence page now says it covers officers from Lieutenant to Brigadier, and corrects Lt Colonel to Level 12A.',
     ],
   },
 ];

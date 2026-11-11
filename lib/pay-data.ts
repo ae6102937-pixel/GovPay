@@ -10,6 +10,8 @@ export interface PostSalaryProfile {
   entryBasic7th: number;
   responsibilities: string[];
   careerProgression: string[];
+  /** Pay this post can receive that the in-hand figures on its page leave out */
+  notIncluded: string[];
 }
 
 export const POPULAR_POSTS: PostSalaryProfile[] = [
@@ -29,6 +31,10 @@ export const POPULAR_POSTS: PostSalaryProfile[] = [
       'Law and order assistance to state police forces',
     ],
     careerProgression: ['Constable (GD) Level 3', 'Head Constable Level 4', 'Assistant Sub-Inspector (ASI) Level 5', 'Sub-Inspector (SI) Level 6', 'Inspector Level 7'],
+    notIncluded: [
+      'Allowances that depend on where you are posted, such as risk and hardship allowances in some areas.',
+      'Other allowances specific to the Central Armed Police Forces, which vary by force and posting.',
+    ],
   },
   {
     slug: 'ssc-cgl-inspector',
@@ -46,6 +52,9 @@ export const POPULAR_POSTS: PostSalaryProfile[] = [
       'Border cargo examination, customs clearance and port surveillance',
     ],
     careerProgression: ['Inspector Level 7', 'Superintendent / ITO Level 8 / 9', 'Assistant Commissioner Level 10 (IRS equivalent)', 'Deputy Commissioner Level 11'],
+    notIncluded: [
+      'Allowances that depend on the posting or the kind of work, which vary by department.',
+    ],
   },
   {
     slug: 'aso-css',
@@ -63,6 +72,9 @@ export const POPULAR_POSTS: PostSalaryProfile[] = [
       'Foreign posting opportunities with generous foreign allowances (for MEA ASO)',
     ],
     careerProgression: ['ASO Level 7', 'Section Officer (SO) Level 8/10', 'Under Secretary Level 11', 'Deputy Secretary Level 12', 'Director Level 13'],
+    notIncluded: [
+      'Foreign allowances, for ASOs of the Ministry of External Affairs posted abroad.',
+    ],
   },
   {
     slug: 'railway-alp',
@@ -80,6 +92,9 @@ export const POPULAR_POSTS: PostSalaryProfile[] = [
       'Running Allowance, paid for kilometres run, which can add substantially to monthly pay',
     ],
     careerProgression: ['Assistant Loco Pilot Level 2', 'Senior ALP Level 4', 'Loco Pilot (Goods) Level 6', 'Loco Pilot (Passenger) Level 6', 'Loco Pilot (Mail/Express) Level 6'],
+    notIncluded: [
+      'Running Allowance, which is paid for kilometres run and can be a large part of a loco pilot’s monthly pay.',
+    ],
   },
   {
     slug: 'station-master',
@@ -96,7 +111,10 @@ export const POPULAR_POSTS: PostSalaryProfile[] = [
       'Ensuring strict adherence to General and Subsidiary Railway Rules (G&SR)',
       'Night duty allowance, national holiday allowance, and stress allowance',
     ],
-    careerProgression: ['Station Master Level 6', 'Station Superintendent Level 7', 'Assistant Operations Manager (AOM) Level 10', 'Divisional Operations Manager (DOM) Level 11'],
+    careerProgression: ['Station Master Level 6', 'Station Superintendent Level 7', 'Group B officer posts in the Operating department, such as Assistant Operations Manager, through departmental selection'],
+    notIncluded: [
+      'Night Duty Allowance and other allowances that depend on duty hours and holidays worked.',
+    ],
   },
   {
     slug: 'kvs-tgt-pgt-teacher',
@@ -114,15 +132,18 @@ export const POPULAR_POSTS: PostSalaryProfile[] = [
       'Summer and winter vacation with full salary benefits',
     ],
     careerProgression: ['TGT Level 7', 'PGT Level 8 (GP 4800, Basic ₹47,600)', 'Vice-Principal Level 10 (Basic ₹56,100)', 'Principal Level 12 (Basic ₹78,800)'],
+    notIncluded: [
+      'Allowances for postings in remote or hard areas, where they apply.',
+    ],
   },
   {
     slug: 'defence-ranks',
-    title: 'Defence Forces (Sepoy, Subedar, Captain, Colonel)',
+    title: 'Defence Officer (Lieutenant to Brigadier)',
     department: 'Ministry of Defence (Indian Army, Navy, Air Force)',
     level: 10,
     gradePay: '5400',
     group: 'A',
-    description: 'Armed forces officer and JCO/OR cadres receiving additional Military Service Pay (MSP: ₹5,200 for JCO/OR, ₹15,500 for Officers).',
+    description: 'Commissioned officers of the Army, Navy and Air Force. Pay starts at Level 10 as a Lieutenant, plus Military Service Pay (MSP) of ₹15,500 a month for officers. JCOs and other ranks get MSP of ₹5,200 and are on different pay levels.',
     typicalRecruitment: 'NDA, CDS, AFCAT, Technical Entry & Agniveer/Recruitment Rallies',
     entryBasic7th: 56100,
     responsibilities: [
@@ -131,6 +152,11 @@ export const POPULAR_POSTS: PostSalaryProfile[] = [
       'High altitude allowance, field area allowance, and canteen (CSD) subsidies',
     ],
     careerProgression: ['Lieutenant Level 10', 'Captain Level 10B', 'Major Level 11', 'Lt. Colonel Level 12A', 'Colonel Level 13', 'Brigadier Level 13A'],
+    notIncluded: [
+      'Military Service Pay of ₹15,500 a month for officers, on which DA is also paid.',
+      'Field area, high altitude and other service-specific allowances.',
+      'The figures deduct 10% for NPS and a CGHS contribution, as for civilian employees. The armed forces are not covered by NPS, so an officer’s actual in-hand pay is higher than shown.',
+    ],
   },
   {
     slug: 'civil-services-ias-ips',
@@ -148,6 +174,10 @@ export const POPULAR_POSTS: PostSalaryProfile[] = [
       'Official residence (Type V/VI), vehicle with driver, and security detail',
     ],
     careerProgression: ['Junior Time Scale Level 10 (₹56,100)', 'Senior Time Scale Level 11 (₹67,700)', 'Junior Administrative Grade Level 12 (₹78,800)', 'Selection Grade Level 13 (₹1,23,100)', 'Super Time Scale (Joint Sec / IG) Level 14 (₹1,44,200)', 'Apex Scale (Chief Sec) Level 17 (₹2,25,000)', 'Cabinet Secretary Level 18 (₹2,50,000)'],
+    notIncluded: [
+      'Allowances that depend on your cadre and posting, such as for hard or remote areas.',
+      'Benefits in kind, such as government housing. Where housing is provided, HRA is not paid, so in-hand pay would be lower than shown.',
+    ],
   },
 ];
 

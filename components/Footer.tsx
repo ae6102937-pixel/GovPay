@@ -115,7 +115,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/salary-of/defence-ranks" className="hover:text-white transition-colors">
-                  Defence Ranks & MSP
+                  Defence Officers (Level 10+)
                 </Link>
               </li>
             </ul>
