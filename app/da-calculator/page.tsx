@@ -8,12 +8,13 @@ import ShareAndPrint from '@/components/ShareAndPrint';
 import { DA_RATES_HISTORY } from '@/lib/pay-data';
 import { FormatINR, RupeeIcon } from '@/components/Rupee';
 import PrintReport from '@/components/PrintReport';
+import { CURRENT_DA } from '@/lib/facts';
 
 export default function DACalculatorPage() {
   const [basicPay, setBasicPay] = useState<number>(44900);
-  const [monthsCount, setMonthsCount] = useState<number>(3);
-  const [oldDARate, setOldDARate] = useState<number>(50);
-  const [newDARate, setNewDARate] = useState<number>(53);
+  const [monthsCount, setMonthsCount] = useState<number>(4);
+  const [oldDARate, setOldDARate] = useState<number>(CURRENT_DA.rate - 3);
+  const [newDARate, setNewDARate] = useState<number>(CURRENT_DA.rate);
 
   const daDiffPercent = newDARate - oldDARate;
   const monthlyArrearPerMonth = Math.round((basicPay * daDiffPercent) / 100);
@@ -30,10 +31,10 @@ export default function DACalculatorPage() {
             <span>Dearness Allowance</span>
           </div>
           <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-1">
-            DA & Arrears Calculator (AICPIN Tracker)
+            DA & Arrears Calculator
           </h1>
           <p className="text-sm text-slate-500 mt-1">
-            Calculate exact retroactive Dearness Allowance arrears and track All India Consumer Price Index rates
+            Work out the arrears due after a Dearness Allowance increase. Current DA: {CURRENT_DA.rate}% from {CURRENT_DA.effectiveFrom}.
           </p>
         </div>
 
@@ -131,15 +132,15 @@ export default function DACalculatorPage() {
           </div>
         </div>
 
-        {/* Right: AICPIN Tracker & DA History (7 cols) */}
+        {/* Right: DA history (7 cols) */}
         <div className="lg:col-span-7 space-y-6">
           <div className="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
             <div className="p-4 bg-slate-50 border-b border-slate-200">
               <h3 className="font-bold text-slate-900 text-base">
-                Historical & Projected Dearness Allowance Rates
+                Dearness Allowance Rates Under the 7th CPC
               </h3>
               <p className="text-xs text-slate-500">
-                Determined by 12-month average of AICPIN-IW (Labour Bureau)
+                Set from the 12-month average of the AICPI-IW published by the Labour Bureau. Latest two rates: PIB releases of 18 April 2026 and 28 October 2026.
               </p>
             </div>
 
@@ -148,8 +149,7 @@ export default function DACalculatorPage() {
                 <tr className="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
                   <th className="py-3 px-4">Effective Period</th>
                   <th className="py-3 px-4 text-center">DA Rate</th>
-                  <th className="py-3 px-4 text-center">Hike</th>
-                  <th className="py-3 px-4 text-right">AICPIN Average</th>
+                  <th className="py-3 px-4 text-right">Increase</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
@@ -157,10 +157,9 @@ export default function DACalculatorPage() {
                   <tr key={idx} className={idx === 0 ? 'bg-blue-50/50 font-bold text-blue-950' : ''}>
                     <td className="py-2.5 px-4 font-medium">{row.period}</td>
                     <td className="py-2.5 px-4 text-center font-bold text-blue-700">{row.rate}%</td>
-                    <td className="py-2.5 px-4 text-center text-emerald-700 font-semibold">
-                      {row.hike > 0 ? `+${row.hike}%` : '0%'}
+                    <td className="py-2.5 px-4 text-right text-emerald-700 font-semibold">
+                      {row.change > 0 ? `+${row.change}%` : 'None'}
                     </td>
-                    <td className="py-2.5 px-4 text-right text-slate-600">{row.aicpinAvg}</td>
                   </tr>
                 ))}
               </tbody>
@@ -184,8 +183,8 @@ export default function DACalculatorPage() {
 
       {/* Print-Only Report */}
       <PrintReport
-        title="Dearness Allowance (DA) Arrears Calculation Statement"
-        subtitle="Retroactive Arrears Assessment Under Ministry of Finance AICPIN Orders"
+        title="Dearness Allowance (DA) Arrears Estimate"
+        subtitle="An estimate only. Your pay office calculates the arrears actually paid."
         metadata={[
           { label: 'Basic Pay', value: `₹${basicPay.toLocaleString('en-IN')}` },
           { label: 'Old DA Rate', value: `${oldDARate}%` },

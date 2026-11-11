@@ -1,8 +1,8 @@
 /**
  * Central Government Pay & Pension Calculation Engine
- * Accurate formulations based on 7th CPC, DoPT guidelines, MoF circulars,
- * 8th CPC Terms of Reference (Justice Ranjana Prakash Desai Committee),
- * and Unified Pension Scheme (UPS) notified guidelines.
+ * 7th CPC figures follow the 7th CPC pay matrix and allowance rules, with DA from lib/facts.ts.
+ * 8th CPC figures are projections from an assumed fitment factor: the Commission has not reported.
+ * UPS follows the features in the PIB release of 24 August 2024.
  */
 
 export interface PayMatrixCell {
@@ -167,7 +167,7 @@ export function calculate8thCPCSalary(params: {
     basic7th,
     fitmentFactor,
     cityClass,
-    currentDA = 53,
+    currentDA = 63, // Keep equal to CURRENT_DA.rate in lib/facts.ts (not imported, so node --test can load this file)
     projectedDA8th = 0, // Usually resets to 0% or low initial DA upon implementation
   } = params;
 

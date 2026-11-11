@@ -21,6 +21,7 @@ import {
   CityClass,
 } from '@/lib/cpc-calculator';
 import { FormatINR, RupeeIcon } from '@/components/Rupee';
+import { CURRENT_DA } from '@/lib/facts';
 
 export default function PayMatrixPage() {
   const [fitmentFactor, setFitmentFactor] = useState<number>(2.57);
@@ -53,7 +54,7 @@ export default function PayMatrixPage() {
         basic7th: selectedCell.basic7th,
         fitmentFactor,
         cityClass: modalCityClass,
-        currentDA: 53,
+        currentDA: CURRENT_DA.rate,
         projectedDA8th: 0,
       })
     : null;
@@ -90,7 +91,7 @@ export default function PayMatrixPage() {
               8th CPC Projected Fitment Factor
             </span>
             <div className="flex flex-wrap gap-2">
-              {[1.92, 2.15, 2.57, 2.86, 3.00, 3.68].map((ff) => (
+              {[1.92, 2.15, 2.57, 2.86, 3.00, 3.83].map((ff) => (
                 <button
                   key={ff}
                   type="button"

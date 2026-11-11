@@ -6,11 +6,29 @@ import { Newspaper, ExternalLink, Calendar, CheckCircle2, ShieldAlert, FileText,
 import DisclaimerBanner from '@/components/DisclaimerBanner';
 import ShareAndPrint from '@/components/ShareAndPrint';
 import { OFFICIAL_NEWS_UPDATES } from '@/lib/pay-data';
+import { CHECKED_ON, CPC8 } from '@/lib/facts';
+
+/** Changes to GovPay itself, newest first. List only real changes. */
+const SITE_CHANGES = [
+  {
+    date: '11 November 2026',
+    items: [
+      'Updated Dearness Allowance to 63% from 1 July 2026 in every calculator. Pages had been using 53%.',
+      'Corrected the DA history: January 2025 was 55% and July 2025 was 58%, not projections. Removed the index averages we could not source.',
+      'Corrected the Staff Side memorandum item: it was submitted on 14 April 2026 and, as reported, asked for a 3.83 fitment factor and ₹69,000 minimum pay. We had shown 2.86 and ₹34,500.',
+      'Corrected the date of the gratuity ceiling increase to ₹25 lakh: effective 1 January 2024, by an order of May 2024.',
+      'Every 8th Pay Commission figure is now labelled as a projection, in page titles too. GovPay is not a government website, and its printed estimates no longer look like official statements.',
+      'Added sources and dates to every news item, and a review date to every page.',
+      'Each post page now shows how its current pay is worked out, item by item, for Class X, Y and Z cities, and what the figures leave out.',
+      'The defence page now says it covers officers from Lieutenant to Brigadier, and corrects Lt Colonel to Level 12A.',
+    ],
+  },
+];
 
 export default function NewsPage() {
   const [selectedTag, setSelectedTag] = useState<string>('All');
 
-  const tags = ['All', 'Cabinet Approval', 'DoPT', 'Finance Ministry', '8th CPC Committee'];
+  const tags = ['All', ...Array.from(new Set(OFFICIAL_NEWS_UPDATES.map((item) => item.officialTag)))];
 
   const filteredNews = selectedTag === 'All'
     ? OFFICIAL_NEWS_UPDATES
@@ -24,17 +42,17 @@ export default function NewsPage() {
           <div className="flex items-center gap-2 text-xs font-semibold text-blue-700">
             <Link href="/" className="hover:underline">Home</Link>
             <span>/</span>
-            <span>Official News & Updates</span>
+            <span>News & Updates</span>
           </div>
           <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-1">
-            8th Pay Commission News & Gazette Tracker
+            8th Pay Commission News and Timeline
           </h1>
           <p className="text-sm text-slate-500 mt-1">
-            Verified updates strictly sourced from 8cpc.gov.in, DoPT, Ministry of Finance, and Cabinet releases
+            Decisions and notifications, each dated and linked to its source. Media reports are marked as such. Last reviewed {CHECKED_ON}.
           </p>
         </div>
 
-        <ShareAndPrint title="8th Pay Commission Official News Tracker" />
+        <ShareAndPrint title="8th Pay Commission News and Timeline" />
       </div>
 
       <DisclaimerBanner />
@@ -74,7 +92,7 @@ export default function NewsPage() {
                 {item.isOfficial && (
                   <span className="flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
                     <CheckCircle2 className="w-3 h-3" />
-                    <span>Verified Source</span>
+                    <span>Official source</span>
                   </span>
                 )}
               </div>
@@ -95,7 +113,7 @@ export default function NewsPage() {
 
             <div className="pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 text-xs">
               <div className="text-slate-500 font-medium">
-                Authority: <span className="font-semibold text-slate-800">{item.source}</span>
+                Source: <span className="font-semibold text-slate-800">{item.source}</span>
               </div>
               <a
                 href={item.sourceUrl}
@@ -103,7 +121,7 @@ export default function NewsPage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 font-bold text-blue-700 hover:text-blue-900"
               >
-                <span>Visit Official Portal</span>
+                <span>{item.isOfficial ? 'Read the official release' : 'Read the report'}</span>
                 <ExternalLink className="w-3.5 h-3.5" />
               </a>
             </div>
@@ -149,11 +167,28 @@ export default function NewsPage() {
 
           <div className="bg-blue-600/30 rounded-xl p-4 border border-blue-400/40 space-y-1">
             <div className="text-emerald-300 font-bold">8th Pay Commission (Current)</div>
-            <div className="text-slate-300">Constituted: 3 Nov 2025</div>
-            <div className="text-white font-bold">Report Expected: May 2027</div>
-            <div className="text-emerald-200 font-medium">Head: Justice Ranjana Prakash Desai</div>
+            <div className="text-slate-300">Constituted: {CPC8.constituted}</div>
+            <div className="text-white font-bold">Report due by: {CPC8.reportDueBy}</div>
+            <div className="text-emerald-200 font-medium">Chair: {CPC8.chairperson}</div>
           </div>
         </div>
+      </section>
+
+      {/* Changes to GovPay itself */}
+      <section className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 space-y-4" aria-labelledby="site-changes">
+        <h2 id="site-changes" className="text-xl font-bold text-slate-900">
+          What we changed on GovPay
+        </h2>
+        {SITE_CHANGES.map((change) => (
+          <div key={change.date} className="space-y-2">
+            <div className="text-xs font-semibold text-slate-500">{change.date}</div>
+            <ul className="list-disc pl-5 space-y-1 text-sm text-slate-700 leading-relaxed">
+              {change.items.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </section>
     </div>
   );

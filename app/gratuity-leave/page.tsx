@@ -8,10 +8,11 @@ import ShareAndPrint from '@/components/ShareAndPrint';
 import { calculateGratuityAndLeave } from '@/lib/cpc-calculator';
 import { FormatINR, RupeeIcon } from '@/components/Rupee';
 import PrintReport from '@/components/PrintReport';
+import { CURRENT_DA } from '@/lib/facts';
 
 export default function GratuityLeavePage() {
   const [lastBasic, setLastBasic] = useState<number>(78800);
-  const [daPercent, setDaPercent] = useState<number>(53);
+  const [daPercent, setDaPercent] = useState<number>(CURRENT_DA.rate);
   const [serviceYears, setServiceYears] = useState<number>(33);
   const [leaveDays, setLeaveDays] = useState<number>(300);
 
@@ -78,7 +79,7 @@ export default function GratuityLeavePage() {
                 className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm font-semibold text-slate-900 focus:outline-hidden"
               />
               <span className="text-[10px] text-slate-400">
-                Current DA: 53%+ (Gratuity ceiling active at <FormatINR value={2500000} />)
+                Current DA: {CURRENT_DA.rate}% (gratuity ceiling of <FormatINR value={2500000} /> applies)
               </span>
             </div>
 
@@ -225,8 +226,8 @@ export default function GratuityLeavePage() {
 
       {/* Print-Only Report */}
       <PrintReport
-        title="Retirement Gratuity & Leave Encashment Statement"
-        subtitle="Statutory Superannuation Entitlements Under CCS Rules"
+        title="Retirement Gratuity & Leave Encashment Estimate"
+        subtitle="Worked out with CCS rules. An estimate only; your pension office sets the amount paid."
         metadata={[
           { label: 'Last Basic Pay Drawn', value: `₹${lastBasic.toLocaleString('en-IN')}` },
           { label: 'Applicable DA Rate', value: `${daPercent}% (Ceiling ₹25 Lakhs Active)` },

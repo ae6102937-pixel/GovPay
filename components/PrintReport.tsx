@@ -1,5 +1,6 @@
 import React from 'react';
 import { RupeeIcon } from './Rupee';
+import { CHECKED_ON, CPC8, CURRENT_DA, PUBLISHER } from '@/lib/facts';
 
 export interface PrintReportRow {
   label: string;
@@ -19,6 +20,7 @@ export interface PrintReportSection {
 export interface PrintReportProps {
   title: string;
   subtitle?: string;
+  /** Ignored: no reference number is printed, because this is an estimate, not an official document */
   referenceNumber?: string;
   metadata: Array<{ label: string; value: React.ReactNode }>;
   colHeaders?: [string, string, string?];
@@ -45,15 +47,14 @@ function renderPrintValue(val: React.ReactNode): React.ReactNode {
 
 export default function PrintReport({
   title,
-  subtitle = 'Central Government Pay & Allowance Assessment Report',
-  referenceNumber,
+  subtitle = 'Pay estimate for planning. Not an official pay statement.',
   metadata,
   colHeaders = ['Pay Component / Description', '7th CPC (Current)', '8th CPC (Projected)'],
   sections,
   notes = [
-    'Calculations are based on 7th CPC baseline rates and officially approved 8th CPC Terms of Reference (ToR).',
-    'Fitment factor and pay matrix figures represent modelled projections until the Union Cabinet notification.',
-    'HRA is calculated based on Department of Expenditure revisions following DA crossing the 50% threshold.',
+    `7th CPC figures use the 7th CPC pay matrix and DA at ${CURRENT_DA.rate}% from ${CURRENT_DA.effectiveFrom}.`,
+    `8th CPC figures are projections from an assumed fitment factor. The Commission's report is due by ${CPC8.reportDueBy}.`,
+    'HRA uses the 7th CPC rates that apply once DA is above 50%: 30%, 20% and 10% of basic pay for X, Y and Z cities.',
   ],
 }: PrintReportProps) {
   const currentDate = new Date().toLocaleDateString('en-IN', {
@@ -62,11 +63,9 @@ export default function PrintReport({
     year: 'numeric',
   });
 
-  const refNo = referenceNumber || `GP-${Math.floor(100000 + Math.random() * 900000)}`;
-
   return (
     <div className="print-only font-serif text-slate-900 bg-white p-2">
-      {/* Official Document Header */}
+      {/* Header: labelled as an estimate so it cannot be mistaken for an official statement */}
       <div className="print-header flex items-start justify-between border-b-2 border-slate-900 pb-4 mb-4">
         <div>
           <div className="flex items-center gap-2">
@@ -83,14 +82,10 @@ export default function PrintReport({
 
         <div className="text-right text-xs text-slate-600 space-y-0.5">
           <div>
-            <span className="font-semibold">Ref No: </span>
-            <span className="font-mono">{refNo}</span>
-          </div>
-          <div>
             <span className="font-semibold">Generated: </span>
             <span>{currentDate}</span>
           </div>
-          <div className="text-[10px] text-slate-500">Official Planning Statement</div>
+          <div className="text-[10px] font-semibold text-slate-700">Estimate only. Not an official document.</div>
         </div>
       </div>
 
@@ -173,7 +168,7 @@ export default function PrintReport({
 
       {/* Regulatory & Methodology Notes */}
       <div className="border-t border-slate-300 pt-3 mb-4 text-[10px] text-slate-600 space-y-1 avoid-page-break">
-        <div className="font-bold uppercase tracking-wider text-slate-700">Notes & Regulatory Basis:</div>
+        <div className="font-bold uppercase tracking-wider text-slate-700">Notes and assumptions:</div>
         <ul className="list-disc pl-4 space-y-0.5">
           {notes.map((note, idx) => (
             <li key={idx}>{note}</li>
@@ -181,23 +176,11 @@ export default function PrintReport({
         </ul>
       </div>
 
-      {/* Official Authentication Block */}
-      <div className="grid grid-cols-2 gap-8 pt-4 border-t border-slate-300 text-xs text-slate-600 avoid-page-break">
-        <div>
-          <div className="text-[10px] uppercase tracking-wider font-semibold text-slate-500">
-            Statement Verification & Disclaimer
-          </div>
-          <div className="text-[9px] text-slate-500 mt-1 leading-snug">
-            Generated via GovPay TrueFunds Research Engine. <strong>Notice:</strong> This data shown is for educational purpose only and is not 100% correct. truefunds.co.in doesn&apos;t take any responsibility for this data. Subject to official Ministry of Finance circulars.
-          </div>
-        </div>
-
-        <div className="text-right">
-          <div className="inline-block border-t border-slate-400 pt-1 px-8 text-center">
-            <div className="text-[11px] font-semibold text-slate-800">Prepared / Verified By</div>
-            <div className="text-[9px] text-slate-500">(Signature / Office Seal)</div>
-          </div>
-        </div>
+      {/* Source and limits of this estimate */}
+      <div className="pt-4 border-t border-slate-300 text-[9px] text-slate-500 leading-snug avoid-page-break">
+        Prepared with GovPay (govpay.truefunds.co.in), part of TrueFunds, run by {PUBLISHER.name}. GovPay is not a government
+        website, and this estimate is not an official pay or pension statement. Your actual pay is set by orders from your
+        department or pay office. Facts last reviewed {CHECKED_ON}.
       </div>
     </div>
   );

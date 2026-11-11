@@ -23,6 +23,7 @@ import DisclaimerBanner from '@/components/DisclaimerBanner';
 import { calculate8thCPCSalary, ENTRY_PAY_7TH, CityClass } from '@/lib/cpc-calculator';
 import { POPULAR_POSTS, OFFICIAL_NEWS_UPDATES } from '@/lib/pay-data';
 import { FormatINR, RupeeIcon } from '@/components/Rupee';
+import { BENEFICIARIES, CHECKED_ON, CURRENT_DA } from '@/lib/facts';
 
 export default function HomePage() {
   // Quick Calculator state
@@ -36,16 +37,16 @@ export default function HomePage() {
     basic7th: entryPay,
     fitmentFactor,
     cityClass,
-    currentDA: 53,
+    currentDA: CURRENT_DA.rate,
     projectedDA8th: 0,
   });
 
   const fitmentScenarios = [
-    { factor: 1.92, label: '1.92 (Conservative / Base + DA Merge)' },
-    { factor: 2.15, label: '2.15 (Moderate Inflation Precedent)' },
-    { factor: 2.57, label: '2.57 (7th CPC Baseline Factor)' },
-    { factor: 2.86, label: '2.86 (JCM Staff Side Demand)' },
-    { factor: 3.68, label: '3.68 (Upper Union Demand)' },
+    { factor: 1.92, label: '1.92 (low scenario)' },
+    { factor: 2.15, label: '2.15 (middle scenario)' },
+    { factor: 2.57, label: '2.57 (same as the 7th CPC)' },
+    { factor: 2.86, label: '2.86 (high scenario)' },
+    { factor: 3.83, label: '3.83 (Staff Side demand, reported)' },
   ];
 
   return (
@@ -59,13 +60,13 @@ export default function HomePage() {
           <div className="max-w-3xl space-y-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-200 text-xs font-semibold backdrop-blur-xs">
               <Sparkles className="w-3.5 h-3.5 text-blue-300" />
-              <span>Official 8th Central Pay Commission Research Portal</span>
+              <span>Independent calculators by TrueFunds · Not a government website</span>
             </div>
             <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
-              8th Pay Commission Salary & Pay Matrix Portal
+              8th Pay Commission Salary Calculator and Pay Projections
             </h1>
             <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
-              Calculate projected salaries across <strong>Pay Levels 1 to 18</strong>, test fitment factor scenarios (1.92 to 2.86), evaluate <strong>UPS vs NPS</strong> pension benefits, and compute DA arrears with transparent government methodologies.
+              Project your salary under the 8th Pay Commission for <strong>Pay Levels 1 to 18</strong> at different fitment factors, compare <strong>UPS and NPS</strong>, and work out DA arrears. Current pay uses the 7th CPC pay matrix and DA at {CURRENT_DA.rate}%. Every 8th CPC figure is a projection until the Commission reports.
             </p>
           </div>
 
@@ -175,7 +176,7 @@ export default function HomePage() {
                   <FormatINR value={quickCalc.inHand7th} suffix=" /mo" />
                 </div>
                 <div className="text-[11px] text-slate-500 mt-1">
-                  Gross: <FormatINR value={quickCalc.gross7th} /> (DA 53%)
+                  Gross: <FormatINR value={quickCalc.gross7th} /> (DA {CURRENT_DA.rate}%)
                 </div>
               </div>
 
@@ -213,15 +214,15 @@ export default function HomePage() {
                   href={`/calculator?level=${selectedLevel}&ff=${fitmentFactor}&city=${cityClass}`}
                   className="mt-2 text-xs font-bold text-purple-700 hover:text-purple-900 flex items-center gap-1"
                 >
-                  <span>View detailed pay slip</span>
+                  <span>See the full breakdown</span>
                   <ChevronRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
             </div>
 
             <div className="mt-4 pt-3 border-t border-slate-100 flex flex-wrap items-center gap-1.5 text-xs text-slate-500">
-              <span className="font-semibold text-amber-700 bg-amber-50 border border-amber-200/80 px-1.5 py-0.5 rounded text-[10px] uppercase tracking-wide">Notice</span>
-              <span>This data shown is only for educational purpose and not 100% correct. truefunds.co.in doesn&apos;t take any responsibility of this data.</span>
+              <span className="font-semibold text-amber-700 bg-amber-50 border border-amber-200/80 px-1.5 py-0.5 rounded text-[10px] uppercase tracking-wide">Projection</span>
+              <span>8th CPC figures assume the fitment factor you pick; the real factor will be set after the Commission reports. Current pay uses DA at {CURRENT_DA.rate}% from {CURRENT_DA.effectiveFrom}.</span>
             </div>
           </div>
         </div>
@@ -241,7 +242,7 @@ export default function HomePage() {
               </h2>
             </div>
             <p className="text-xs sm:text-sm text-slate-500 max-w-md">
-              Every calculator uses officially notified DoPT rules, DA thresholds, and verified Pay Commission formulas.
+              Current pay follows 7th CPC rules and the current DA. 8th CPC figures are projections from the fitment factor you choose.
             </p>
           </div>
 
@@ -257,7 +258,7 @@ export default function HomePage() {
                     8th CPC Salary Calculator
                   </h3>
                   <p className="text-sm text-slate-600 mt-1 leading-relaxed">
-                    Custom fitment factors (1.86 to 3.68), HRA city tiers (X, Y, Z), Transport Allowance, NPS/UPS 10% deduction, and New vs Old Tax comparison.
+                    Fitment factors from 1.80 to 3.90, HRA by city class (X, Y, Z), Transport Allowance and the 10% NPS/UPS deduction.
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-1.5 pt-1">
@@ -373,12 +374,12 @@ export default function HomePage() {
                     DA & Arrears Calculator
                   </h3>
                   <p className="text-sm text-slate-600 mt-1 leading-relaxed">
-                    Track All India Consumer Price Index (AICPIN-IW) numbers, current 53%+ DA rates, and calculate retroactive arrears for any payout interval.
+                    See the DA rate history up to the current {CURRENT_DA.rate}% and work out the arrears due after a DA increase.
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-1.5 pt-1">
                   <span className="text-[11px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-medium">AICPIN Tracker</span>
-                  <span className="text-[11px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-medium">DA 53%+</span>
+                  <span className="text-[11px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-medium">DA {CURRENT_DA.rate}%</span>
                   <span className="text-[11px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-medium">Month-by-Month</span>
                 </div>
               </div>
@@ -556,13 +557,13 @@ export default function HomePage() {
         <section className="bg-linear-to-br from-slate-900 to-indigo-950 text-white rounded-2xl p-6 sm:p-10 space-y-8">
           <div className="max-w-3xl space-y-3">
             <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
-              Cabinet Constituted Panel
+              From official releases
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
               8th Pay Commission: Mandate, Timeline & Committee
             </h2>
             <p className="text-slate-300 text-sm leading-relaxed">
-              Official facts on the 8th Central Pay Commission approved by the Union Cabinet to address salary parity, inflation erosion, and pensionary revisions.
+              Facts from the Commission’s website (8cpc.gov.in) and PIB releases. Last reviewed {CHECKED_ON}.
             </p>
           </div>
 
@@ -583,16 +584,16 @@ export default function HomePage() {
 
             <div className="bg-white/10 backdrop-blur-xs rounded-xl p-5 border border-white/10 space-y-2">
               <Users className="w-6 h-6 text-amber-400" />
-              <div className="text-xs text-slate-300">Total Beneficiaries</div>
-              <div className="text-lg font-bold text-white">1.19 Crore Citizens</div>
-              <div className="text-xs text-slate-400">50 Lakh staff + 69 Lakh pensioners</div>
+              <div className="text-xs text-slate-300">Employees and pensioners</div>
+              <div className="text-lg font-bold text-white">About {((BENEFICIARIES.employeesLakh + BENEFICIARIES.pensionersLakh) / 100).toFixed(2)} crore</div>
+              <div className="text-xs text-slate-400">{BENEFICIARIES.employeesLakh} lakh employees + {BENEFICIARIES.pensionersLakh} lakh pensioners (Govt, {BENEFICIARIES.asOf})</div>
             </div>
 
             <div className="bg-white/10 backdrop-blur-xs rounded-xl p-5 border border-white/10 space-y-2">
               <CheckCircle2 className="w-6 h-6 text-sky-400" />
-              <div className="text-xs text-slate-300">Expected Submission</div>
+              <div className="text-xs text-slate-300">Report due by</div>
               <div className="text-lg font-bold text-white">May 2027</div>
-              <div className="text-xs text-slate-400">18-month tenure for consultations</div>
+              <div className="text-xs text-slate-400">18 months from constitution, per the Terms of Reference</div>
             </div>
           </div>
         </section>
@@ -601,12 +602,12 @@ export default function HomePage() {
         <section className="space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-blue-700">Official Tracker</span>
+              <span className="text-xs font-bold uppercase tracking-wider text-blue-700">Latest</span>
               <h2 className="text-2xl font-bold text-slate-900">
-                Verified News & Ministry Circulars
+                Latest Decisions and News
               </h2>
               <p className="text-sm text-slate-500">
-                Sourced strictly from 8cpc.gov.in, DoPT, Ministry of Finance, and Cabinet releases
+                Each item is dated and linked to its source. Media reports are labelled as such.
               </p>
             </div>
             <Link
@@ -648,28 +649,28 @@ export default function HomePage() {
         {(() => {
           const faqList = [
             {
-              question: "When was the 8th Pay Commission officially approved?",
-              answer: "The Union Cabinet approved the formation of the 8th Central Pay Commission on 3 November 2025. Former Supreme Court Justice Ranjana Prakash Desai was appointed as Chairperson.",
+              question: "When was the 8th Pay Commission set up?",
+              answer: "The Government announced the 8th Central Pay Commission in January 2025. The Union Cabinet approved its Terms of Reference on 28 October 2025, and the Commission was constituted by a notification dated 3 November 2025, with former Supreme Court judge Justice Ranjana Prakash Desai as chairperson.",
             },
             {
               question: "When will the 8th Pay Commission report be submitted?",
-              answer: "Pay Commissions are traditionally given an 18-month tenure to consult stakeholders. The report is expected around May 2027, following which the Union Cabinet decides on implementation dates and arrears.",
+              answer: "Its Terms of Reference give it 18 months from its constitution, so the report is due by about May 2027. The Government then decides which recommendations to accept and from what date.",
             },
             {
               question: "What is the expected fitment factor for the 8th CPC?",
-              answer: "Staff unions (JCM Staff Side) have proposed a fitment factor of 2.86 (minimum basic ₹34,500), while conservative estimates suggest 1.92 to 2.15. All published calculators represent projections until the Commission makes its recommendation.",
+              answer: "No fitment factor has been decided. In its memorandum of April 2026, the Staff Side of the NC-JCM reportedly asked for 3.83, which would make the minimum basic pay about ₹69,000. The 7th CPC used 2.57. Our calculators let you try any factor, and every 8th CPC result is a projection.",
             },
             {
               question: "How does UPS differ from NPS for central employees?",
-              answer: "The Unified Pension Scheme (UPS) guarantees an assured monthly pension of 50% of the last 12 months average basic pay with full inflation indexation (DR). In contrast, NPS pension depends on market returns and commercial annuity rates.",
+              answer: "Under the Unified Pension Scheme (UPS), approved on 24 August 2024, the assured pension is 50% of the average basic pay of the last 12 months for 25 years of qualifying service, with dearness relief. Under NPS, the pension depends on market returns and annuity rates.",
             },
             {
               question: "How is HRA calculated after Dearness Allowance crossed 50%?",
-              answer: "As per 7th CPC rules, when DA reached 50%, HRA rates automatically elevated to 30% for Class X (Metro), 20% for Class Y (Tier-2), and 10% for Class Z (Rural) cities.",
+              answer: "Under 7th CPC rules, HRA became 30% of basic pay in Class X cities, 20% in Class Y and 10% in Class Z from 1 January 2024, when DA reached 50%.",
             },
             {
-              question: "What is the enhanced statutory ceiling for Retirement Gratuity?",
-              answer: "The ceiling on Retirement and Death Gratuity was statutorily enhanced by 25% from ₹20 Lakh to ₹25 Lakh immediately upon DA crossing the 50% benchmark.",
+              question: "What is the gratuity ceiling now?",
+              answer: "₹25 lakh. The ceiling on retirement and death gratuity was raised by 25%, from ₹20 lakh, with effect from 1 January 2024, when DA reached 50%.",
             },
           ];
 
@@ -693,12 +694,12 @@ export default function HomePage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
               />
               <div className="max-w-2xl">
-                <span className="text-xs font-bold uppercase tracking-wider text-blue-700">Clear Facts</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-blue-700">FAQ</span>
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
                   Frequently Asked Questions (8th CPC & Pay Rules)
                 </h2>
                 <p className="text-sm text-slate-500 mt-1">
-                  Authoritative answers separating official government facts from social media rumors
+                  Answers based on official releases. Projections are marked as projections.
                 </p>
               </div>
 

@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { ExternalLink, ShieldCheck, Heart, AlertTriangle } from 'lucide-react';
+import { ExternalLink, ShieldCheck, AlertTriangle } from 'lucide-react';
+import { CHECKED_ON, CPC8, POLICY_LINKS, PUBLISHER } from '@/lib/facts';
 
 export default function Footer() {
   return (
@@ -21,12 +22,24 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-sm text-slate-400 leading-relaxed max-w-sm">
-              Dedicated central government employee pay, pension, and allowance portal. Built to provide transparent, verified, and ad-free calculations based strictly on official Gazette notifications and Pay Commission reports.
+              Pay, pension and allowance calculators for central government employees. Current pay and DA follow official orders. 8th Pay Commission figures are projections until the Commission reports.
             </p>
             <div className="flex items-center gap-2 text-xs text-slate-400">
               <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              <span>Independent financial analysis by TrueFunds.</span>
+              <span>
+                Part of{' '}
+                <a href={PUBLISHER.mainSite} className="underline hover:text-white">
+                  TrueFunds
+                </a>
+                , run by {PUBLISHER.name}. Not a government website.
+              </span>
             </div>
+            <p className="text-xs text-slate-400">
+              Questions or corrections:{' '}
+              <a href={`mailto:${PUBLISHER.email}`} className="underline hover:text-white break-words">
+                {PUBLISHER.email}
+              </a>
+            </p>
           </div>
 
           {/* Quick Calculators */}
@@ -102,7 +115,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/salary-of/defence-ranks" className="hover:text-white transition-colors">
-                  Defence Ranks & MSP
+                  Defence Officers (Level 10+)
                 </Link>
               </li>
             </ul>
@@ -158,7 +171,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/news" className="hover:text-white transition-colors text-blue-400">
-                  8th CPC Verified Timeline &rarr;
+                  8th CPC timeline and sources &rarr;
                 </Link>
               </li>
             </ul>
@@ -171,19 +184,22 @@ export default function Footer() {
             <AlertTriangle className="w-5 h-5" />
           </div>
           <div className="text-xs text-slate-300 leading-relaxed">
-            <strong className="text-amber-400 font-semibold uppercase tracking-wider">Educational Notice: </strong>
-            This data shown is only for educational purpose and is not 100% correct. truefunds.co.in doesn&apos;t take any responsibility of this data.
-            All calculations, projections, and fitment factors are simulation models based on historical Pay Commission trends. Please refer to official Government of India Gazette notifications for statutory figures.
+            <strong className="text-amber-400 font-semibold uppercase tracking-wider">Estimates, not advice: </strong>
+            7th CPC pay and DA follow official orders. Every 8th Pay Commission figure is a projection based on assumed fitment factors, because the Commission&apos;s report is due by {CPC8.reportDueBy}. Results are estimates for planning, not an official pay statement. Check orders from your department or pay office before relying on any figure. Last reviewed {CHECKED_ON}.
           </div>
         </div>
 
         <div className="border-t border-slate-800 mt-6 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
           <p>
-            &copy; {new Date().getFullYear()} govpay.truefunds.co.in &bull; TrueFunds Central Pay & Pension Research.
+            &copy; {new Date().getFullYear()} {PUBLISHER.name} &bull; GovPay is part of TrueFunds.
           </p>
-          <p className="text-slate-400 text-center sm:text-right">
-            Data shown is for educational purpose only. truefunds.co.in takes no responsibility for this data.
-          </p>
+          <nav aria-label="Policies" className="flex flex-wrap justify-center sm:justify-end gap-x-4 gap-y-1">
+            {POLICY_LINKS.map((link) => (
+              <a key={link.href} href={link.href} className="hover:text-white underline-offset-2 hover:underline">
+                {link.name}
+              </a>
+            ))}
+          </nav>
         </div>
       </div>
     </footer>

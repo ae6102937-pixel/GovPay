@@ -10,6 +10,8 @@ export interface PostSalaryProfile {
   entryBasic7th: number;
   responsibilities: string[];
   careerProgression: string[];
+  /** Pay this post can receive that the in-hand figures on its page leave out */
+  notIncluded: string[];
 }
 
 export const POPULAR_POSTS: PostSalaryProfile[] = [
@@ -29,6 +31,10 @@ export const POPULAR_POSTS: PostSalaryProfile[] = [
       'Law and order assistance to state police forces',
     ],
     careerProgression: ['Constable (GD) Level 3', 'Head Constable Level 4', 'Assistant Sub-Inspector (ASI) Level 5', 'Sub-Inspector (SI) Level 6', 'Inspector Level 7'],
+    notIncluded: [
+      'Allowances that depend on where you are posted, such as risk and hardship allowances in some areas.',
+      'Other allowances specific to the Central Armed Police Forces, which vary by force and posting.',
+    ],
   },
   {
     slug: 'ssc-cgl-inspector',
@@ -46,6 +52,9 @@ export const POPULAR_POSTS: PostSalaryProfile[] = [
       'Border cargo examination, customs clearance and port surveillance',
     ],
     careerProgression: ['Inspector Level 7', 'Superintendent / ITO Level 8 / 9', 'Assistant Commissioner Level 10 (IRS equivalent)', 'Deputy Commissioner Level 11'],
+    notIncluded: [
+      'Allowances that depend on the posting or the kind of work, which vary by department.',
+    ],
   },
   {
     slug: 'aso-css',
@@ -63,6 +72,9 @@ export const POPULAR_POSTS: PostSalaryProfile[] = [
       'Foreign posting opportunities with generous foreign allowances (for MEA ASO)',
     ],
     careerProgression: ['ASO Level 7', 'Section Officer (SO) Level 8/10', 'Under Secretary Level 11', 'Deputy Secretary Level 12', 'Director Level 13'],
+    notIncluded: [
+      'Foreign allowances, for ASOs of the Ministry of External Affairs posted abroad.',
+    ],
   },
   {
     slug: 'railway-alp',
@@ -77,9 +89,12 @@ export const POPULAR_POSTS: PostSalaryProfile[] = [
     responsibilities: [
       'Assisting Loco Pilot in train navigation and signal monitoring',
       'Engine checks, emergency braking and vigilance control verification',
-      'Running Allowance (KMA - Kilometerage Allowance) adds ₹15,000 to ₹35,000+ monthly',
+      'Running Allowance, paid for kilometres run, which can add substantially to monthly pay',
     ],
     careerProgression: ['Assistant Loco Pilot Level 2', 'Senior ALP Level 4', 'Loco Pilot (Goods) Level 6', 'Loco Pilot (Passenger) Level 6', 'Loco Pilot (Mail/Express) Level 6'],
+    notIncluded: [
+      'Running Allowance, which is paid for kilometres run and can be a large part of a loco pilot’s monthly pay.',
+    ],
   },
   {
     slug: 'station-master',
@@ -96,7 +111,10 @@ export const POPULAR_POSTS: PostSalaryProfile[] = [
       'Ensuring strict adherence to General and Subsidiary Railway Rules (G&SR)',
       'Night duty allowance, national holiday allowance, and stress allowance',
     ],
-    careerProgression: ['Station Master Level 6', 'Station Superintendent Level 7', 'Assistant Operations Manager (AOM) Level 10', 'Divisional Operations Manager (DOM) Level 11'],
+    careerProgression: ['Station Master Level 6', 'Station Superintendent Level 7', 'Group B officer posts in the Operating department, such as Assistant Operations Manager, through departmental selection'],
+    notIncluded: [
+      'Night Duty Allowance and other allowances that depend on duty hours and holidays worked.',
+    ],
   },
   {
     slug: 'kvs-tgt-pgt-teacher',
@@ -114,15 +132,18 @@ export const POPULAR_POSTS: PostSalaryProfile[] = [
       'Summer and winter vacation with full salary benefits',
     ],
     careerProgression: ['TGT Level 7', 'PGT Level 8 (GP 4800, Basic ₹47,600)', 'Vice-Principal Level 10 (Basic ₹56,100)', 'Principal Level 12 (Basic ₹78,800)'],
+    notIncluded: [
+      'Allowances for postings in remote or hard areas, where they apply.',
+    ],
   },
   {
     slug: 'defence-ranks',
-    title: 'Defence Forces (Sepoy, Subedar, Captain, Colonel)',
+    title: 'Defence Officer (Lieutenant to Brigadier)',
     department: 'Ministry of Defence (Indian Army, Navy, Air Force)',
     level: 10,
     gradePay: '5400',
     group: 'A',
-    description: 'Armed forces officer and JCO/OR cadres receiving additional Military Service Pay (MSP: ₹5,200 for JCO/OR, ₹15,500 for Officers).',
+    description: 'Commissioned officers of the Army, Navy and Air Force. Pay starts at Level 10 as a Lieutenant, plus Military Service Pay (MSP) of ₹15,500 a month for officers. JCOs and other ranks get MSP of ₹5,200 and are on different pay levels.',
     typicalRecruitment: 'NDA, CDS, AFCAT, Technical Entry & Agniveer/Recruitment Rallies',
     entryBasic7th: 56100,
     responsibilities: [
@@ -130,7 +151,12 @@ export const POPULAR_POSTS: PostSalaryProfile[] = [
       'MSP addition counts for Dearness Allowance (DA) and Pension',
       'High altitude allowance, field area allowance, and canteen (CSD) subsidies',
     ],
-    careerProgression: ['Lieutenant Level 10', 'Captain Level 10B', 'Major Level 11', 'Lt. Colonel Level 12', 'Colonel Level 13', 'Brigadier Level 13A'],
+    careerProgression: ['Lieutenant Level 10', 'Captain Level 10B', 'Major Level 11', 'Lt. Colonel Level 12A', 'Colonel Level 13', 'Brigadier Level 13A'],
+    notIncluded: [
+      'Military Service Pay of ₹15,500 a month for officers, on which DA is also paid.',
+      'Field area, high altitude and other service-specific allowances.',
+      'The figures deduct 10% for NPS and a CGHS contribution, as for civilian employees. The armed forces are not covered by NPS, so an officer’s actual in-hand pay is higher than shown.',
+    ],
   },
   {
     slug: 'civil-services-ias-ips',
@@ -148,83 +174,120 @@ export const POPULAR_POSTS: PostSalaryProfile[] = [
       'Official residence (Type V/VI), vehicle with driver, and security detail',
     ],
     careerProgression: ['Junior Time Scale Level 10 (₹56,100)', 'Senior Time Scale Level 11 (₹67,700)', 'Junior Administrative Grade Level 12 (₹78,800)', 'Selection Grade Level 13 (₹1,23,100)', 'Super Time Scale (Joint Sec / IG) Level 14 (₹1,44,200)', 'Apex Scale (Chief Sec) Level 17 (₹2,25,000)', 'Cabinet Secretary Level 18 (₹2,50,000)'],
+    notIncluded: [
+      'Allowances that depend on your cadre and posting, such as for hard or remote areas.',
+      'Benefits in kind, such as government housing. Where housing is provided, HRA is not paid, so in-hand pay would be lower than shown.',
+    ],
   },
 ];
 
 export interface NewsItem {
   id: string;
+  /** Date of the decision, notification or report */
   date: string;
   source: string;
   sourceUrl: string;
   title: string;
   summary: string;
-  officialTag: 'Cabinet Approval' | 'DoPT' | 'Finance Ministry' | '8th CPC Committee' | 'Analysis';
+  officialTag: 'Cabinet Approval' | 'Pay Commission' | 'Pension Department' | 'Media Report';
+  /** True only when sourceUrl is the Government's or the Commission's own publication */
   isOfficial: boolean;
 }
 
+/** Newest first. Add only real, dated events, each with a link to its source. */
 export const OFFICIAL_NEWS_UPDATES: NewsItem[] = [
   {
-    id: 'news-1',
-    date: 'November 3, 2025',
-    source: 'Ministry of Finance, Govt of India',
-    sourceUrl: 'https://8cpc.gov.in',
-    title: '8th Central Pay Commission Officially Constituted under Justice Ranjana Prakash Desai',
-    summary: 'The Union Cabinet officially approved the formation of the 8th Central Pay Commission, headed by former Supreme Court Justice Ranjana Prakash Desai. The Commission is mandated to examine salary structures, allowances, pensionary benefits, and parity issues for over 50 lakh central government employees and 69 lakh pensioners.',
+    id: 'da-jul-2026',
+    date: '28 October 2026',
+    source: 'Union Cabinet (PM India release)',
+    sourceUrl: 'https://www.pmindia.gov.in/?p=16966378',
+    title: 'DA raised to 63% from 1 July 2026',
+    summary:
+      'The Cabinet approved a 3% increase in Dearness Allowance and Dearness Relief, from 60% to 63% of basic pay or pension, with effect from 1 July 2026. The release puts the cost at ₹10,016.10 crore a year and says it covers about 48.54 lakh employees and 68.71 lakh pensioners.',
     officialTag: 'Cabinet Approval',
     isOfficial: true,
   },
   {
-    id: 'news-2',
-    date: 'February 2026',
-    source: 'DoPT & Staff Side JCM',
-    sourceUrl: 'https://dopt.gov.in',
-    title: 'Staff Side of National Council (JCM) Submits Memorandum for Minimum 2.86 Fitment Factor',
-    summary: 'The Joint Consultative Machinery (JCM) staff side submitted a comprehensive memorandum proposing minimum entry basic pay of ₹34,500 for Level 1, reflecting a 2.86 fitment factor to offset inflation since the 7th CPC base year.',
-    officialTag: 'DoPT',
-    isOfficial: true,
-  },
-  {
-    id: 'news-3',
-    date: 'August 24, 2024 / Notified 2025',
-    source: 'Union Cabinet / Ministry of Finance',
-    sourceUrl: 'https://pib.gov.in',
-    title: 'Unified Pension Scheme (UPS) Cleared with 50% Assured Pension & Inflation Indexation',
-    summary: 'Cabinet approved UPS providing central employees with an assured 50% pension based on last 12 months average basic pay, minimum ₹10,000 pension, 60% family pension, and dearness relief (DR) linkage, with government contribution increased to 18.5%.',
+    id: 'da-jan-2026',
+    date: '18 April 2026',
+    source: 'Press Information Bureau',
+    sourceUrl: 'https://www.pib.gov.in/PressReleasePage.aspx?PRID=2253245',
+    title: 'DA raised to 60% from 1 January 2026',
+    summary:
+      'The Cabinet approved a 2% increase in Dearness Allowance and Dearness Relief, from 58% to 60%, with effect from 1 January 2026, under the 7th CPC formula.',
     officialTag: 'Cabinet Approval',
     isOfficial: true,
   },
   {
-    id: 'news-4',
-    date: 'Current Schedule',
-    source: 'Terms of Reference (ToR) Gazette',
-    sourceUrl: 'https://8cpc.gov.in',
-    title: 'Report Expected by May 2027: Implementation & Arrears Outlook',
-    summary: 'As per standard CPC terms, the Commission has been granted an 18-month tenure to hold stakeholder consultations with staff unions, state governments, and defence services. Final implementation decisions and potential retroactive effect from January 1, 2026 will be determined by the Union Cabinet post-report submission.',
-    officialTag: '8th CPC Committee',
+    id: 'jcm-memorandum-2026',
+    date: '14 April 2026',
+    source: 'Business Today (media report)',
+    sourceUrl:
+      'https://www.businesstoday.in/personal-finance/news/story/8th-pay-commission-nc-jcm-seeks-rs-69000-minimum-salary-6-annual-increment-check-key-demands-525740-2026-04-15',
+    title: 'Staff Side of NC-JCM submits its memorandum to the 8th CPC',
+    summary:
+      'According to media reports, the Staff Side of the National Council (JCM) asked for a fitment factor of 3.83, which would raise the minimum basic pay from ₹18,000 to about ₹69,000, along with a 6% annual increment. These are the employees’ demands, not decisions.',
+    officialTag: 'Media Report',
+    isOfficial: false,
+  },
+  {
+    id: 'cpc8-constituted',
+    date: '3 November 2025',
+    source: '8th Central Pay Commission',
+    sourceUrl: 'https://8cpc.gov.in/',
+    title: '8th Central Pay Commission constituted',
+    summary:
+      'The Government constituted the 8th Central Pay Commission by a notification dated 3 November 2025. Its chairperson is Justice Ranjana Prakash Desai, with Prof. Pulak Ghosh as part-time member and Shri Pankaj Jain as member-secretary.',
+    officialTag: 'Pay Commission',
     isOfficial: true,
   },
   {
-    id: 'news-5',
-    date: 'July 2024 Notification',
-    source: 'Department of Expenditure',
-    sourceUrl: 'https://doe.gov.in',
-    title: 'Gratuity Ceiling Enhanced by 25% to ₹25 Lakh as DA Crossed 50% Threshold',
-    summary: 'Following the increase of Dearness Allowance to 50%+, the statutory cap on Retirement Gratuity and Death Gratuity was formally raised from ₹20 Lakh to ₹25 Lakh under 7th CPC recommendations.',
-    officialTag: 'Finance Ministry',
+    id: 'cpc8-tor',
+    date: '28 October 2025',
+    source: 'Press Information Bureau',
+    sourceUrl: 'https://www.pib.gov.in/PressReleasePage.aspx?PRID=2183289',
+    title: 'Cabinet approves the 8th CPC’s Terms of Reference',
+    summary:
+      'The Commission is to make its recommendations within 18 months of its constitution, which puts its report by about May 2027. The release notes that, going by past practice, the recommendations would normally take effect from 1 January 2026; the actual date will be decided by the Government.',
+    officialTag: 'Cabinet Approval',
+    isOfficial: true,
+  },
+  {
+    id: 'ups-approved',
+    date: '24 August 2024',
+    source: 'Press Information Bureau',
+    sourceUrl: 'https://www.pib.gov.in/PressReleasePage.aspx?PRID=2048607',
+    title: 'Cabinet approves the Unified Pension Scheme (UPS)',
+    summary:
+      'UPS gives an assured pension of 50% of the average basic pay of the last 12 months for 25 years of qualifying service (proportionately less down to 10 years), a family pension of 60% of that pension, a minimum pension of ₹10,000 a month after 10 years, dearness relief on all three, and a lump sum at superannuation.',
+    officialTag: 'Cabinet Approval',
+    isOfficial: true,
+  },
+  {
+    id: 'gratuity-25-lakh',
+    date: 'May 2024',
+    source: 'Department of Pension & Pensioners’ Welfare',
+    sourceUrl: 'https://doppw.gov.in/',
+    title: 'Gratuity ceiling raised from ₹20 lakh to ₹25 lakh',
+    summary:
+      'Following the 7th CPC recommendation that the gratuity ceiling rise by 25% when DA reaches 50%, the maximum retirement and death gratuity was raised to ₹25 lakh with effect from 1 January 2024, for employees covered by the CCS (Pension) Rules, 2021 and the CCS (Payment of Gratuity under NPS) Rules, 2021.',
+    officialTag: 'Pension Department',
     isOfficial: true,
   },
 ];
 
+/** DA under the 7th CPC, newest first. "change" is the increase over the previous rate. */
 export const DA_RATES_HISTORY = [
-  { period: 'Jan 2026 (Projected)', rate: 58, hike: 3, aicpinAvg: '143.5' },
-  { period: 'July 2025 (Projected)', rate: 55, hike: 2, aicpinAvg: '141.2' },
-  { period: 'Jan 2025', rate: 53, hike: 0, aicpinAvg: '139.8' },
-  { period: 'July 2024', rate: 53, hike: 3, aicpinAvg: '139.1' },
-  { period: 'Jan 2024', rate: 50, hike: 4, aicpinAvg: '138.5' },
-  { period: 'July 2023', rate: 46, hike: 4, aicpinAvg: '136.0' },
-  { period: 'Jan 2023', rate: 42, hike: 4, aicpinAvg: '132.8' },
-  { period: 'July 2022', rate: 38, hike: 4, aicpinAvg: '129.2' },
-  { period: 'Jan 2022', rate: 34, hike: 3, aicpinAvg: '125.1' },
-  { period: 'July 2021', rate: 31, hike: 3, aicpinAvg: '122.8' },
-  { period: 'Jan 2020 - Jun 2021', rate: 17, hike: 0, aicpinAvg: 'Frozen (Covid-19)' },
+  { period: 'From July 2026', rate: 63, change: 3 },
+  { period: 'January 2026', rate: 60, change: 2 },
+  { period: 'July 2025', rate: 58, change: 3 },
+  { period: 'January 2025', rate: 55, change: 2 },
+  { period: 'July 2024', rate: 53, change: 3 },
+  { period: 'January 2024', rate: 50, change: 4 },
+  { period: 'July 2023', rate: 46, change: 4 },
+  { period: 'January 2023', rate: 42, change: 4 },
+  { period: 'July 2022', rate: 38, change: 4 },
+  { period: 'January 2022', rate: 34, change: 3 },
+  { period: 'July 2021 (frozen instalments restored)', rate: 31, change: 14 },
+  { period: 'January 2020 to June 2021 (frozen)', rate: 17, change: 0 },
 ];

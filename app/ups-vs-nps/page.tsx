@@ -19,13 +19,14 @@ import ShareAndPrint from '@/components/ShareAndPrint';
 import { compareUPSvsNPS } from '@/lib/cpc-calculator';
 import { FormatINR, RupeeIcon } from '@/components/Rupee';
 import PrintReport from '@/components/PrintReport';
+import { CURRENT_DA } from '@/lib/facts';
 
 export default function UPSvsNPSPage() {
   const [currentAge, setCurrentAge] = useState<number>(35);
   const [retirementAge, setRetirementAge] = useState<number>(60);
   const [currentBasic, setCurrentBasic] = useState<number>(44900);
   const [completedService, setCompletedService] = useState<number>(8);
-  const [currentDA, setCurrentDA] = useState<number>(53);
+  const [currentDA, setCurrentDA] = useState<number>(CURRENT_DA.rate);
   const [expectedNPSReturn, setExpectedNPSReturn] = useState<number>(9.5);
   const [annuityReturnRate, setAnnuityReturnRate] = useState<number>(6.2);
   const [salaryGrowthRate, setSalaryGrowthRate] = useState<number>(6.0);
@@ -373,8 +374,8 @@ export default function UPSvsNPSPage() {
 
       {/* Print-Only Report */}
       <PrintReport
-        title="Unified Pension Scheme (UPS) vs National Pension System (NPS) Statement"
-        subtitle="Comparative Retirement Benefit Assessment"
+        title="UPS vs NPS: Pension Estimate"
+        subtitle="An estimate for comparing the two schemes. Not an official pension statement."
         metadata={[
           { label: 'Current Basic Pay', value: `₹${currentBasic.toLocaleString('en-IN')}` },
           { label: 'Current Age / Retirement', value: `${currentAge} Yrs / ${retirementAge} Yrs` },

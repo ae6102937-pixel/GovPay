@@ -2,6 +2,10 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { PUBLISHER } from '@/lib/facts';
+
+const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+const bingVerification = process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION;
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -16,7 +20,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: 'GovPay TrueFunds - 8th Pay Commission & Central Govt Salary Calculator',
   description:
-    'Comprehensive 8th Pay Commission salary calculator, central government pay matrix levels 1-18, in-hand salary breakdown, UPS vs NPS, pension, and DA calculators.',
+    '8th Pay Commission salary projections, the 7th CPC pay matrix for levels 1–18, in-hand pay at the current DA, UPS vs NPS, pension and DA arrears calculators.',
   keywords: [
     '8th pay commission salary calculator',
     '8th cpc pay matrix',
@@ -28,9 +32,9 @@ export const metadata: Metadata = {
     'pension commutation calculator 7th cpc 8th cpc',
     'govpay truefunds',
   ],
-  authors: [{ name: 'TrueFunds GovPay Team', url: 'https://govpay.truefunds.co.in' }],
-  creator: 'TrueFunds',
-  publisher: 'TrueFunds India',
+  authors: [{ name: PUBLISHER.team, url: `${PUBLISHER.mainSite}/about` }],
+  creator: PUBLISHER.brand,
+  publisher: PUBLISHER.name,
   applicationName: 'GovPay TrueFunds',
   generator: 'Next.js',
   metadataBase: new URL('https://govpay.truefunds.co.in'),
@@ -80,9 +84,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'GovPay TrueFunds - 8th Pay Commission & Central Govt Salary Calculator',
     description:
-      'Accurate in-hand salary projections, pay matrix levels 1-18, fitment factor scenarios, UPS vs NPS, and pension calculators.',
-    site: '@TrueFundsIndia',
-    creator: '@TrueFundsIndia',
+      '8th Pay Commission salary projections by fitment factor, the 7th CPC pay matrix, UPS vs NPS, and pension calculators.',
     images: ['https://govpay.truefunds.co.in/og-image.png'],
   },
   robots: {
@@ -98,12 +100,10 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  // Emit verification tags only when a real token is configured
   verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || 'truefunds-govpay-google-verification',
-    yandex: 'truefunds-govpay-yandex-verification',
-    other: {
-      'msvalidate.01': process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION || 'truefunds-govpay-bing-verification',
-    },
+    ...(googleVerification ? { google: googleVerification } : {}),
+    ...(bingVerification ? { other: { 'msvalidate.01': bingVerification } } : {}),
   },
   category: 'finance',
 };
@@ -120,22 +120,19 @@ export default function RootLayout({
     alternateName: 'GovPay Central Govt Salary Portal',
     url: 'https://govpay.truefunds.co.in',
     description:
-      'Central government pay, allowance, and pension research portal providing calculators for the 8th Pay Commission, 7th CPC pay matrix, UPS vs NPS, and DA.',
+      'Pay, pension and allowance calculators for central government employees, with 8th Pay Commission projections. Part of TrueFunds.',
     inLanguage: 'en-IN',
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: 'https://govpay.truefunds.co.in/calculator?q={search_term_string}',
-      'query-input': 'required name=search_term_string',
-    },
+    publisher: { '@type': 'Organization', name: PUBLISHER.name },
   };
 
   const organizationSchema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'TrueFunds',
-    url: 'https://govpay.truefunds.co.in',
+    name: PUBLISHER.brand,
+    url: PUBLISHER.mainSite,
     logo: 'https://govpay.truefunds.co.in/android-chrome-512x512.png',
-    sameAs: ['https://truefunds.co.in'],
+    email: PUBLISHER.email,
+    parentOrganization: { '@type': 'Organization', name: PUBLISHER.name },
   };
 
   const webAppSchema = {
@@ -146,7 +143,7 @@ export default function RootLayout({
     operatingSystem: 'All',
     url: 'https://govpay.truefunds.co.in',
     description:
-      'Interactive 8th Pay Commission salary calculator, pension estimation, UPS vs NPS comparison, and DA arrears tool for Central Government employees.',
+      '8th Pay Commission salary projections, pension estimates, UPS vs NPS comparison and a DA arrears calculator for central government employees.',
     offers: {
       '@type': 'Offer',
       price: '0',

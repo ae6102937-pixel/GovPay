@@ -7,7 +7,7 @@ import { calculate8thCPCSalary } from '@/lib/cpc-calculator';
 export const metadata = {
   title: 'Salary of Central Govt Posts (7th & 8th CPC) - GovPay TrueFunds',
   description:
-    'Detailed in-hand salary, grade pay, allowances, and 8th Pay Commission projections for Constable GD, SSC CGL Inspector, Railway ALP, Teachers, and Defence Ranks.',
+    'Detailed in-hand salary, grade pay, allowances, and 8th Pay Commission projections for Constable GD, SSC CGL Inspector, Railway ALP, KVS teachers and defence officers. 8th CPC figures are projections.',
 };
 
 export default function SalaryOfIndexPage() {
@@ -24,7 +24,7 @@ export default function SalaryOfIndexPage() {
           Salary by Central Government Designation
         </h1>
         <p className="text-sm text-slate-500 mt-1 max-w-2xl">
-          Detailed entry basic pay, Grade Pay equivalent, allowances, and 8th Pay Commission forecast for India&apos;s most searched government posts.
+          Entry pay, in-hand pay at the current DA, and a projection under the 8th Pay Commission for common central government posts.
         </p>
       </div>
 
@@ -72,7 +72,7 @@ export default function SalaryOfIndexPage() {
                     <span className="font-bold text-slate-900">₹{calc.inHand7th.toLocaleString('en-IN')}/mo</span>
                   </div>
                   <div className="flex justify-between text-blue-700 font-bold pt-1 border-t border-slate-200">
-                    <span>8th CPC Projected In-Hand:</span>
+                    <span>8th CPC projection (at 2.57):</span>
                     <span>₹{calc.inHand8th.toLocaleString('en-IN')}/mo</span>
                   </div>
                 </div>

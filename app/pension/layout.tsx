@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Central Govt Pension & Commutation Calculator | GovPay TrueFunds',
     description:
-      'Estimate your retirement pension, 40% commutation lump sum, monthly pension after commutation, and family pension under 7th and 8th CPC rules.',
+      'Estimate your retirement pension, 40% commutation lump sum, monthly pension after commutation, and family pension under 7th CPC rules, with 8th CPC projections.',
     url: 'https://govpay.truefunds.co.in/pension',
   },
 };
