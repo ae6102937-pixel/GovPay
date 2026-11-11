@@ -19,6 +19,7 @@ import {
 } from '@/lib/cpc-calculator';
 import { FormatINR, RupeeIcon } from '@/components/Rupee';
 import PrintReport from '@/components/PrintReport';
+import { CURRENT_DA } from '@/lib/facts';
 
 function CalculatorContent() {
   const searchParams = useSearchParams();
@@ -36,7 +37,7 @@ function CalculatorContent() {
   const [fitmentFactor, setFitmentFactor] = useState<number>(paramFF);
   const [isCustomFF, setIsCustomFF] = useState<boolean>(false);
   const [cityClass, setCityClass] = useState<CityClass>(paramCity);
-  const [currentDA, setCurrentDA] = useState<number>(53);
+  const [currentDA, setCurrentDA] = useState<number>(CURRENT_DA.rate);
   const [projectedDA8th, setProjectedDA8th] = useState<number>(0);
   const [pensionScheme, setPensionScheme] = useState<'NPS_UPS' | 'OPS'>('NPS_UPS');
 
@@ -76,12 +77,12 @@ function CalculatorContent() {
   const netDiffPercent = inHand7th > 0 ? Number(((netDiff / inHand7th) * 100).toFixed(1)) : 0;
 
   const fitmentPresets = [
-    { factor: 1.92, label: '1.92', desc: 'Conservative (Merge Pay + 53% DA)' },
-    { factor: 2.15, label: '2.15', desc: 'Moderate Inflation Precedent' },
-    { factor: 2.57, label: '2.57', desc: '7th CPC Equivalent Factor' },
-    { factor: 2.86, label: '2.86', desc: 'JCM Staff Side Demand' },
-    { factor: 3.00, label: '3.00', desc: 'Round Benchmark' },
-    { factor: 3.68, label: '3.68', desc: 'Upper Union Demand' },
+    { factor: 1.92, label: '1.92', desc: 'Low scenario (assumption)' },
+    { factor: 2.15, label: '2.15', desc: 'Middle scenario (assumption)' },
+    { factor: 2.57, label: '2.57', desc: 'Same as the 7th CPC' },
+    { factor: 2.86, label: '2.86', desc: 'High scenario (assumption)' },
+    { factor: 3.00, label: '3.00', desc: 'Round number (assumption)' },
+    { factor: 3.83, label: '3.83', desc: 'Staff Side demand, April 2026 (reported)' },
   ];
 
   return (
@@ -222,7 +223,7 @@ function CalculatorContent() {
                 <input
                   type="range"
                   min="1.80"
-                  max="3.70"
+                  max="3.90"
                   step="0.01"
                   value={fitmentFactor}
                   onChange={(e) => setFitmentFactor(Number(e.target.value))}
@@ -231,8 +232,8 @@ function CalculatorContent() {
                 <div className="flex justify-between text-[11px] text-slate-400">
                   <span>1.80 (Low)</span>
                   <span>2.57 (7th CPC)</span>
-                  <span>2.86 (JCM)</span>
-                  <span>3.70 (High)</span>
+                  <span>2.86 (High)</span>
+                  <span>3.90</span>
                 </div>
               </div>
             )}
@@ -284,7 +285,7 @@ function CalculatorContent() {
                 onChange={(e) => setCurrentDA(Number(e.target.value))}
                 className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm font-semibold text-slate-900 focus:outline-hidden"
               />
-              <span className="text-[10px] text-slate-400">Notified rate: 53%+</span>
+              <span className="text-[10px] text-slate-400">Current rate: {CURRENT_DA.rate}% from {CURRENT_DA.effectiveFrom}</span>
             </div>
 
             <div>
@@ -598,14 +599,14 @@ function CalculatorContent() {
 
       {/* Print-Only Report Section */}
       <PrintReport
-        title="8th Central Pay Commission Salary Assessment Statement"
-        subtitle="Comparative Pay Slip & Allowance Breakdown"
+        title="8th Pay Commission Salary Projection"
+        subtitle="Current pay and projected 8th CPC pay. An estimate, not an official pay slip."
         metadata={[
           { label: 'Pay Level & Scale', value: `Level ${level} (GP ${ENTRY_PAY_7TH[level]?.gradePay})` },
           { label: 'Current 7th Basic', value: `₹${customBasic.toLocaleString('en-IN')}` },
           { label: 'Projected 8th Factor', value: `${fitmentFactor.toFixed(2)}x Multiplier` },
           { label: 'City Classification', value: `Class ${cityClass} (${cityClass === 'X' ? '30%' : cityClass === 'Y' ? '20%' : '10%'} HRA)` },
-          { label: 'Current DA Rate', value: `${currentDA}% (Notified)` },
+          { label: 'DA Rate Used', value: `${currentDA}%${currentDA === CURRENT_DA.rate ? ' (current rate)' : ' (your input)'}` },
           { label: 'Pension Scheme', value: pensionScheme === 'NPS_UPS' ? 'UPS / NPS (10% Ded)' : 'OPS (0% Ded)' },
         ]}
         sections={[

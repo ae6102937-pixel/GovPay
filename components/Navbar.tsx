@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { Calculator, Table2, ShieldAlert, Award, FileSpreadsheet, TrendingUp, Newspaper, Menu, X, Landmark, Users } from 'lucide-react';
+import { BENEFICIARIES, CPC8, CURRENT_DA } from '@/lib/facts';
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -20,16 +21,18 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-xs">
-      {/* Top Govt / Official Notice Strip */}
+      {/* 8th CPC status strip: facts from lib/facts.ts, each with a source */}
       <div className="bg-slate-900 text-slate-100 text-xs py-1.5 px-4">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span className="font-medium">8th Central Pay Commission Tracker:</span>
-            <span className="text-slate-300 hidden sm:inline">Constituted 3 Nov 2025 • Report Expected May 2027</span>
+            <span className="font-medium">8th Central Pay Commission:</span>
+            <span className="text-slate-300 hidden sm:inline">Constituted {CPC8.constituted} • Report due by {CPC8.reportDueBy} • DA {CURRENT_DA.rate}% from {CURRENT_DA.effectiveFrom}</span>
           </div>
           <div className="flex items-center gap-4 text-[11px] text-slate-300">
-            <span className="hidden md:inline">Affects 50L+ Employees & 69L+ Pensioners</span>
+            <span className="hidden md:inline">
+              About {BENEFICIARIES.employeesLakh} lakh employees and {BENEFICIARIES.pensionersLakh} lakh pensioners (Govt figures, {BENEFICIARIES.asOf})
+            </span>
             <span className="bg-blue-600/60 text-blue-100 px-2 py-0.5 rounded text-[10px] font-semibold tracking-wide">
               govpay.truefunds.co.in
             </span>

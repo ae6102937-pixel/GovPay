@@ -8,10 +8,11 @@ import ShareAndPrint from '@/components/ShareAndPrint';
 import { calculatePensionDetails, COMMUTATION_TABLE } from '@/lib/cpc-calculator';
 import { FormatINR, RupeeIcon } from '@/components/Rupee';
 import PrintReport from '@/components/PrintReport';
+import { CURRENT_DA } from '@/lib/facts';
 
 export default function PensionPage() {
   const [lastBasic, setLastBasic] = useState<number>(67700);
-  const [drPercent, setDrPercent] = useState<number>(53);
+  const [drPercent, setDrPercent] = useState<number>(CURRENT_DA.rate);
   const [commutationPercent, setCommutationPercent] = useState<number>(40);
   const [ageNextBirthday, setAgeNextBirthday] = useState<number>(61);
   const [serviceYears, setServiceYears] = useState<number>(30);
@@ -136,7 +137,7 @@ export default function PensionPage() {
                 onChange={(e) => setDrPercent(Number(e.target.value))}
                 className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-sm font-semibold text-slate-900 focus:outline-hidden"
               />
-              <span className="text-[10px] text-slate-400">Current DR matches DA at 53%+</span>
+              <span className="text-[10px] text-slate-400">Current DR: {CURRENT_DA.rate}% from {CURRENT_DA.effectiveFrom}</span>
             </div>
           </div>
         </div>
@@ -265,8 +266,8 @@ export default function PensionPage() {
 
       {/* Print-Only Report */}
       <PrintReport
-        title="Central Civil Services Pension & Commutation Statement"
-        subtitle="Computation Under CCS (Pension) Rules & Commutation Tables"
+        title="Pension & Commutation Estimate"
+        subtitle="Worked out with the CCS (Pension) Rules and commutation table. An estimate only; your pension office sets the amount paid."
         metadata={[
           { label: 'Last Basic Pay Drawn', value: `₹${lastBasic.toLocaleString('en-IN')}` },
           { label: 'Qualifying Service', value: `${serviceYears} Years` },

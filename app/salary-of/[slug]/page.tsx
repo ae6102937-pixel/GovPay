@@ -18,6 +18,7 @@ import { calculate8thCPCSalary, CityClass } from '@/lib/cpc-calculator';
 import type { Metadata } from 'next';
 import { FormatINR, RupeeIcon } from '@/components/Rupee';
 import PrintReport from '@/components/PrintReport';
+import { CURRENT_DA } from '@/lib/facts';
 
 export function generateStaticParams() {
   return POPULAR_POSTS.map((post) => ({
@@ -39,8 +40,8 @@ export async function generateMetadata({
     };
   }
 
-  const title = `${post.title} Salary after 8th Pay Commission - Level ${post.level} Pay Breakdown`;
-  const description = `Detailed 8th CPC projected salary for ${post.title} under ${post.department}. Level ${post.level} (Grade Pay ${post.gradePay}), estimated in-hand salary, allowances, and allowances across X, Y, Z cities.`;
+  const title = `${post.title} Salary: 8th Pay Commission Projection`;
+  const description = `${post.title}, Level ${post.level} (Grade Pay ${post.gradePay}): current 7th CPC in-hand pay at ${CURRENT_DA.rate}% DA in X, Y and Z cities, and projected 8th Pay Commission pay at four fitment factors.`;
 
   return {
     title,
@@ -59,7 +60,7 @@ export async function generateMetadata({
           url: '/og-image.png',
           width: 1200,
           height: 630,
-          alt: `${post.title} 8th Pay Commission Salary Structure`,
+          alt: `${post.title} salary: 7th CPC pay and 8th Pay Commission projection`,
         },
       ],
     },
@@ -89,6 +90,7 @@ export default async function PostDetailPage({
     level: post.level,
     basic7th: post.entryBasic7th,
     fitmentFactor: 2.57,
+    currentDA: CURRENT_DA.rate,
     cityClass: 'X',
   });
 
@@ -96,6 +98,7 @@ export default async function PostDetailPage({
     level: post.level,
     basic7th: post.entryBasic7th,
     fitmentFactor: 2.57,
+    currentDA: CURRENT_DA.rate,
     cityClass: 'Y',
   });
 
@@ -103,6 +106,7 @@ export default async function PostDetailPage({
     level: post.level,
     basic7th: post.entryBasic7th,
     fitmentFactor: 2.57,
+    currentDA: CURRENT_DA.rate,
     cityClass: 'Z',
   });
 
@@ -112,6 +116,7 @@ export default async function PostDetailPage({
       level: post.level,
       basic7th: post.entryBasic7th,
       fitmentFactor: ff,
+      currentDA: CURRENT_DA.rate,
       cityClass: 'X',
     }),
   }));
@@ -129,7 +134,7 @@ export default async function PostDetailPage({
             <span>{post.title}</span>
           </div>
           <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-1">
-            {post.title} Salary (7th & 8th Pay Commission)
+            {post.title} Salary: 7th CPC Pay and 8th Pay Commission Projection
           </h1>
           <p className="text-sm text-slate-500 mt-1">
             Pay Level {post.level} &bull; Grade Pay {post.gradePay} &bull; Group {post.group} &bull; {post.department}
@@ -149,7 +154,7 @@ export default async function PostDetailPage({
           <div className="bg-linear-to-br from-blue-900 to-indigo-950 text-white rounded-2xl p-6 shadow-md space-y-4">
             <div className="flex items-center justify-between border-b border-white/10 pb-3">
               <span className="text-xs font-bold uppercase tracking-wider text-blue-300">
-                Entry Pay Overview (Level {post.level})
+                In-hand pay at entry, Level {post.level} (DA {CURRENT_DA.rate}%)
               </span>
               <span className="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 px-2.5 py-0.5 rounded-full font-bold">
                 7th CPC Entry: <FormatINR value={post.entryBasic7th} />
@@ -163,7 +168,7 @@ export default async function PostDetailPage({
                   <FormatINR value={calcMetro.inHand7th} />
                 </div>
                 <div className="text-[10px] text-blue-200">
-                  8th: <FormatINR value={calcMetro.inHand8th} />
+                  8th CPC projection: <FormatINR value={calcMetro.inHand8th} />
                 </div>
               </div>
 
@@ -173,7 +178,7 @@ export default async function PostDetailPage({
                   <FormatINR value={calcTier2.inHand7th} />
                 </div>
                 <div className="text-[10px] text-blue-200">
-                  8th: <FormatINR value={calcTier2.inHand8th} />
+                  8th CPC projection: <FormatINR value={calcTier2.inHand8th} />
                 </div>
               </div>
 
@@ -183,7 +188,7 @@ export default async function PostDetailPage({
                   <FormatINR value={calcRural.inHand7th} />
                 </div>
                 <div className="text-[10px] text-blue-200">
-                  8th: <FormatINR value={calcRural.inHand8th} />
+                  8th CPC projection: <FormatINR value={calcRural.inHand8th} />
                 </div>
               </div>
             </div>
@@ -196,7 +201,7 @@ export default async function PostDetailPage({
                 8th Pay Commission Projections for {post.title}
               </h2>
               <p className="text-xs text-slate-500">
-                Comparison across conservative (1.92), moderate (2.15), standard (2.57), and union demand (2.86)
+                Projected pay at four assumed fitment factors, in a Class X city. None of them is official: the 8th CPC has not reported. 2.57 was the 7th CPC&apos;s factor. Projections at 2.57 are also shown in the cards above.
               </p>
             </div>
 
@@ -216,7 +221,7 @@ export default async function PostDetailPage({
                       {factor.toFixed(2)}x
                       {factor === 2.57 && (
                         <span className="ml-2 text-[10px] bg-blue-600 text-white px-1.5 py-0.5 rounded font-bold">
-                          Standard
+                          7th CPC factor
                         </span>
                       )}
                     </td>
@@ -273,8 +278,8 @@ export default async function PostDetailPage({
                 <span className="text-slate-600">{post.typicalRecruitment}</span>
               </div>
               <div>
-                <span className="font-bold text-slate-900 block">Post Classification:</span>
-                <span className="text-slate-600">Central Civil Services Group {post.group}</span>
+                <span className="font-bold text-slate-900 block">Group:</span>
+                <span className="text-slate-600">Group {post.group}</span>
               </div>
             </div>
 
